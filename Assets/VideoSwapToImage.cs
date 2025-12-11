@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.Video;
 
 public class VideoSwapToImage : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public VideoPlayer videoPlayer;
+    public Material stillImageMaterial;
+    private Renderer quadRenderer;
+
     void Start()
     {
-        
+        quadRenderer = GetComponent<Renderer>();
+
+        // When the video finishes, call OnVideoFinished
+        videoPlayer.loopPointReached += OnVideoFinished;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnVideoFinished(VideoPlayer vp)
     {
-        
+        // Assign the still image material to the quad
+        quadRenderer.material = stillImageMaterial;
     }
 }
